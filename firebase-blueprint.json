@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "entities": {
+    "tables": {
+      "title": "ActiveTable",
+      "description": "Active tables, orders, and statuses across the restaurant",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "type": { "type": "string", "enum": ["mesa", "barra", "domicilio"] },
+        "status": { "type": "string", "enum": ["libre", "activo", "cocina", "servido", "cuenta"] },
+        "items": { "type": "array" },
+        "waiterName": { "type": "string" },
+        "customerName": { "type": "string" },
+        "openedAt": { "type": "number" },
+        "lastKitchenSendAt": { "type": "number" },
+        "orderNumber": { "type": "number" },
+        "currentRound": { "type": "number" },
+        "tip": { "type": "number" },
+        "discount": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["id", "label", "type", "status", "items"]
+    },
+    "kitchenOrders": {
+      "title": "KitchenOrder",
+      "description": "Real-time kitchen order tickets (KDS) sent from POS tablets",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "orderNumber": { "type": "number" },
+        "tableLabel": { "type": "string" },
+        "tableType": { "type": "string" },
+        "items": { "type": "array" },
+        "status": { "type": "string", "enum": ["pendiente", "preparando", "listo", "entregado"] },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" },
+        "waiterName": { "type": "string" }
+      },
+      "required": ["id", "orderNumber", "tableLabel", "items", "status", "createdAt"]
+    },
+    "receipts": {
+      "title": "PaymentReceipt",
+      "description": "Completed sales transactions and closed accounts",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "orderNumber": { "type": "number" },
+        "tableLabel": { "type": "string" },
+        "items": { "type": "array" },
+        "subtotal": { "type": "number" },
+        "discount": { "type": "number" },
+        "tip": { "type": "number" },
+        "total": { "type": "number" },
+        "paymentMethod": { "type": "string" },
+        "paidAt": { "type": "number" },
+        "waiterName": { "type": "string" },
+        "cashierName": { "type": "string" }
+      },
+      "required": ["id", "orderNumber", "total", "paymentMethod", "paidAt"]
+    },
+    "settings": {
+      "title": "RestaurantSettings",
+      "description": "Restaurant-wide settings and configuration",
+      "type": "object",
+      "properties": {
+        "restaurantName": { "type": "string" },
+        "nit": { "type": "string" },
+        "phone": { "type": "string" },
+        "address": { "type": "string" },
+        "soundEnabled": { "type": "boolean" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["restaurantName"]
+    },
+    "waiters": {
+      "title": "WaiterConfig",
+      "description": "Configured names and assignments for up to 20 waiter tablet stations",
+      "type": "object",
+      "properties": {
+        "waiterNames": { "type": "object" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["waiterNames"]
+    }
+  },
+  "roles": {
+    "posTablet": "Sync tables, kitchen tickets, sales receipts, and settings across all connected restaurant tablets"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix Remix Remix Pollos \u0026 Sabor POS",
+  "description": "Sistema POS con sincronización en tiempo real y soporte offline para 20 tablets conectadas por WiFi en restaurante Pollos \u0026 Sabor (Mesas, KDS Cocina, Caja y Visor en Vivo).",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
